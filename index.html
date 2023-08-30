@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Quotes Generator</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+        h1, h2,h3,h4,p,a{
+            font-family: 'Roboto', sans-serif;
+        }
+        body{
+            height: 100vh;
+            width: 100%;
+            background-image: url('/4142231.jpg');
+            background-position: center;
+            background-size: cover;
+            background-attachment:fixed;
+            overflow-x: hidden;
+        }
+        #Container{
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            
+        }
+        .normal_Btn{
+            padding: 10px 20px;
+            background-color: rgb(18, 18, 116);
+            color: white;
+            text-decoration: none;
+            border: 2px solid rgb(18, 18, 116);
+            border-radius: 5px;
+        }
+
+        .normal_Btn:hover{
+            background-color: white;
+            color: rgb(18, 18, 116);
+        }
+
+        .Card{
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            flex-direction: column;
+            margin: 30px;
+            height: 300px;
+            width: 250px;
+            padding: 20px;
+            background-color: rgb(255, 255, 255);
+            border-radius: 20px;
+            text-align: center;
+            transition: 0.8s linear ;
+        }
+
+    
+    </style>
+</head>
+<body>  
+    <h1 style="font-size: 50px; color: white; text-align: center; background-color: rgb(18, 18, 122); padding: 20px;">Programming Challengers</h1>
+
+    <div id="Container">
+      
+        
+    </div>
+
+
+
+
+     <script>
+      
+      let Container =  document.getElementById('Container');
+
+            fetch('https://kontests.net/api/v1/all').then((response)=>{
+                return response.json();
+            }).then((data)=>{
+                /*data.forEach(fun);*/
+                let size = data.length;
+                for(let i= 0; i<size; i++){
+
+                console.log(data)
+
+                 let Box = document.createElement('div');
+                 Box.setAttribute('class', 'Card');
+                 Container.appendChild(Box);
+
+                 let Heading = document.createElement('h3');
+                 Heading.innerText = data[i].name;
+                 Box.appendChild(Heading);
+
+                let site = document.createElement('p');
+                site.innerHTML = data[i].site;
+                Box.appendChild(site);
+            
+
+                let End_Date_temp =  data[i].end_time; 
+                End_Date_temp= End_Date_temp.slice(0,10);
+                let endTime = document.createElement('h4');
+                endTime.innerText = `Ends on : ${End_Date_temp}`;
+                Box.appendChild(endTime);
+     
+                let button = document.createElement('a');
+                button.setAttribute('href', data[i].url);
+                button.setAttribute('class', 'normal_Btn');
+                button.innerText = "Read More";
+                Box.appendChild(button);
+               
+            }
+                
+            })
+
+            
+           
+     </script>
+</body>
+</html>
